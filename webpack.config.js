@@ -3,7 +3,8 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    app: "./src/index.jsx",
+    app: "./src/app.js",
+    vendor: ["react","react-dom"]
   },
   output: {
     path: "./build",
@@ -30,5 +31,15 @@ module.exports = {
         include: [path.resolve(__dirname,"src")]
       }
     ]
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devtool: "#source-map",
+  devServer: {
+    hot: true,
+    inline: true,
+    contentBase: "build"
   }
 };
